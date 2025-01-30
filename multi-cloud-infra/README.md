@@ -38,12 +38,12 @@ This project demonstrates the deployment of infrastructure across **AWS, Azure, 
 To ensure successful Git operations, configure your credentials using:
 ```sh
 git config --global credential.helper store
-git config --global user.name "basedzen"
-git config --global user.email "david.b.levi@hotmail.com"
+git config --global user.name "<YOUR_GITHUB_USERNAME>"
+git config --global user.email "<YOUR_EMAIL>"
 ```
 If facing authentication issues, generate a **Personal Access Token (PAT)** and use:
 ```sh
-git remote set-url origin https://basedzen@github.com/YOUR_REPO.git
+git remote set-url origin https://<YOUR_GITHUB_USERNAME>@github.com/YOUR_REPO.git
 ```
 
 ---
@@ -52,7 +52,7 @@ git remote set-url origin https://basedzen@github.com/YOUR_REPO.git
 
 ### **1. Clone the Repository**
 ```sh
-git clone https://github.com/basedzen/multi-cloud-infra.git
+git clone https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO>.git
 cd multi-cloud-infra
 ```
 
