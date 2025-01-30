@@ -1,5 +1,4 @@
 # Multi-Cloud Infrastructure Deployment with Terraform
-# Multi-Cloud Infrastructure Deployment with Terraform
 
 ## **Project Overview**
 This project demonstrates the deployment of infrastructure across **AWS, Azure, and GCP** using **Terraform** and automates the deployment with **GitHub Actions**. It provisions VPCs, subnets, security groups, and load balancers while ensuring all resources stay within each cloud provider's **Free Tier**.
@@ -29,38 +28,35 @@ This project demonstrates the deployment of infrastructure across **AWS, Azure, 
 │   ├── variables.tf     # GCP Variables
 │   ├── outputs.tf       # GCP Outputs
 ├── .github/workflows
-│   ├── deploy.yml       # GitHub Actions Workflow
+│   ├── terraform.yml    # GitHub Actions Workflow
 └── README.md            # Project Documentation
 ```
 
 ---
 
-## **Prerequisites**
-Before deploying, ensure you have the following installed:
-
-### **1. Cloud Accounts**
-- [AWS Free Tier](https://aws.amazon.com/free/)
-- [Azure Free Account](https://azure.microsoft.com/en-us/free/)
-- [GCP Free Tier](https://cloud.google.com/free)
-
-### **2. Tools Installed**
-- **[Terraform](https://www.terraform.io/downloads)**
-- **[Git](https://git-scm.com/downloads)**
-- **[AWS CLI](https://aws.amazon.com/cli/)**
-- **[Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)**
-- **[Google Cloud SDK](https://cloud.google.com/sdk/docs/install)**
+## **Git Configuration for Push Access**
+To ensure successful Git operations, configure your credentials using:
+```sh
+git config --global credential.helper store
+git config --global user.name "basedzen"
+git config --global user.email "david.b.levi@hotmail.com"
+```
+If facing authentication issues, generate a **Personal Access Token (PAT)** and use:
+```sh
+git remote set-url origin https://basedzen@github.com/YOUR_REPO.git
+```
 
 ---
 
 ## **Setup Instructions**
 
-### **Step 1: Clone the Repository**
+### **1. Clone the Repository**
 ```sh
 git clone https://github.com/basedzen/multi-cloud-infra.git
 cd multi-cloud-infra
 ```
 
-### **Step 2: Configure Cloud Credentials**
+### **2. Configure Cloud Credentials**
 #### **AWS Credentials**
 ```sh
 aws configure
@@ -76,7 +72,7 @@ az login
 gcloud auth application-default login
 ```
 
-### **Step 3: Deploy Infrastructure**
+### **3. Deploy Infrastructure**
 #### **AWS Deployment**
 ```sh
 cd aws
@@ -98,14 +94,14 @@ terraform init
 terraform apply -auto-approve
 ```
 
-### **Step 4: Deploy a Sample Web App**
+### **4. Deploy a Sample Web App**
 This project includes a simple **Flask web application** containerized with **Docker**. The app returns a message confirming successful deployment.
 
 #### **Run the App Locally (Optional)**
 ```sh
 cd web-app
 docker build -t multi-cloud-app .
-docker run -p 80:80 multi-cloud-app
+docker run -p 5000:5000 multi-cloud-app
 ```
 
 ---
@@ -113,7 +109,7 @@ docker run -p 80:80 multi-cloud-app
 ## **CI/CD Pipeline (GitHub Actions)**
 This project includes a **GitHub Actions Workflow** that automatically deploys infrastructure when changes are pushed to the repository.
 
-### **Workflow File: `.github/workflows/deploy.yml`**
+### **Workflow File: `.github/workflows/terraform.yml`**
 ```yaml
 name: Terraform Deployment
 
@@ -140,29 +136,19 @@ jobs:
 
 ---
 
-## **Cost Optimization**
-To **stay within free-tier limits**, ensure:
-- You **destroy** resources when not in use:
+## **Troubleshooting Git Push Errors**
+- **If you see authentication errors**, reset your credentials:
   ```sh
-  terraform destroy -auto-approve
+  git credential reject https://github.com
   ```
-- You **monitor usage** with billing dashboards in **AWS, Azure, and GCP**.
-- You **use smaller instance types** and **serverless options** when possible.
-
----
-
-## **Troubleshooting**
-- **Terraform Error?** Run `terraform fmt` and `terraform validate` to check syntax.
-- **Authentication Issues?** Re-authenticate using AWS, Azure, or GCP CLI.
-- **Web App Not Working?** Check **networking settings**, **security group rules**, and **firewall rules**.
-
----
-
-## **Next Steps & Enhancements**
-✅ **State Management**: Use remote backend storage (AWS S3, Azure Blob, GCP Buckets).  
-✅ **Monitoring**: Add Prometheus/Grafana for real-time monitoring.  
-✅ **Security**: Implement least privilege IAM roles.  
-✅ **Scaling**: Auto-scale VMs/containers in all clouds.  
+- **If push fails due to timeouts**, check your internet connection and retry:
+  ```sh
+  git push origin main
+  ```
+- **If using SSH authentication:**
+  ```sh
+  ssh -T git@github.com
+  ```
 
 ---
 
@@ -180,4 +166,3 @@ This project is open-source under the [MIT License](LICENSE).
 📌 **David Levi**  
 📧 Contact: david.b.levi@hotmail.com  
 🌐 GitHub: [https://github.com/basedzen](https://github.com/basedzen)
-
