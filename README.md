@@ -164,5 +164,4 @@ This project is open-source under the [MIT License](LICENSE).
 
 ## **Author**
 📌 **David Levi**  
-📧 Contact: david.b.levi@hotmail.com  
 🌐 GitHub: [https://github.com/basedzen](https://github.com/basedzen)
